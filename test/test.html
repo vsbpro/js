@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../vsbjs/vsb.js"></script>
+    </head>
+    <body onload="highlightOnLoad()">
+        <pre>
+            <code lang="cpp" color="red">
+#include &lt;iostream&gt;
+
+using namespace std;
+    
+int main()
+{
+    int i,no;
+    cout&lt;&lt;"Enter any num: ";
+    cin&gt;&gt;no;
+    if(no==1)
+    {
+        cout&lt;&lt;"Smallest prime num is 2";
+    }
+    for(i=2;i&lt;no;i++)
+    {
+        if(no%i==0)
+        {
+            cout&lt;&lt;"Not prime number";
+            break;
+        }
+    }
+    if(no==i)
+    {
+        cout&lt;&lt;"Yes, Number is Prime";
+    }
+    return 0;
+}
+            </code>
+        </pre>
+    </body>
+</html>
