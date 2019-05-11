@@ -151,3 +151,31 @@ function colorStringByArray(input, array, color){
     }
     return output;
 }
+
+function applyClassByArray(input, array, className){
+    var size = array.length;
+    var strLength = input.length;
+    var output = ""
+    var tokenLength = 0;
+    for(i=0,l=strLength;i<strLength;){
+        var notFound = true;
+        for(idx=0;idx < size; idx++){
+            tokenLength = array[idx].length;
+            if(l>=tokenLength){
+                if(input.substr(i,tokenLength)==array[idx]){
+                    output += "<span class=\""+className+"\">"+array[idx]+"</span>";
+                    i += tokenLength;
+                    l -= tokenLength;
+                    notFound = false;
+                }
+            }
+        }
+        if(notFound){
+            output += input[i];
+            i++;
+            l--;
+        }
+        notFound = true;
+    }
+    return output;
+}

@@ -4,7 +4,19 @@
         <script src="../vsbjs/vsb.js"></script>
     </head>
     <body onload="highlightOnLoad()">
-        <pre>
+        <style>
+            .highlighter {
+                background: yellowgreen;
+            }
+        </style>
+        <script>
+            function highlight(){
+                var array = ["Yes", "Not"];
+                var p = document.getElementById("test");
+                p.innerHTML = applyClassByArray(p.innerHTML, array, "highlighter");
+            }
+        </script>
+        <pre id="test" onclick="highlight()">
             <code lang="cpp" color="red">
 #include &lt;iostream&gt;
 
