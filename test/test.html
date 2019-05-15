@@ -47,5 +47,19 @@ int main()
 }
             </code>
         </pre>
+        <script>
+            var testData1 = [
+                {name:"value1", type="file"},
+                {name:"value2", type="dir",files:[{name:"value21", type="file"},{name:"value22", type="file"},{name:"value23", type="file"}]},
+                {name:"value3", type="dir",files:[
+                    {name:"value31", type="dir", files:[
+                        {name:"value311", type="file"},
+                        {name:"value312", type="file"}
+                    ]}
+                ]},
+                {name:"value4", type="file"}
+            ]
+        </script>
+        <p class="tree" data="testData1"></p>
     </body>
 </html>

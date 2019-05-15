@@ -1,102 +1,4 @@
-cpp = [
-"alignas",
-"alignof",
-"and",
-"and_eq",
-"asm",
-"atomic_cancel",
-"atomic_commit",
-"atomic_noexcept",
-"auto",
-"bitand",
-"bitor",
-"bool",
-"break",
-"case",
-"catch",
-"char",
-"char8_t",
-"char16_t",
-"char32_t",
-"class",
-"compl",
-"concept",
-"const",
-"consteval",
-"constexpr",
-"const_cast",
-"continue",
-"co_await",
-"co_return",
-"co_yield",
-"decltype",
-"default",
-"delete",
-"do",
-"double",
-"dynamic_cast",
-"else",
-"enum",
-"explicit",
-"export",
-"extern",
-"false",
-"float",
-"for",
-"friend",
-"goto",
-"if",
-"inline",
-"int",
-"long",
-"mutable",
-"namespace",
-"new",
-"noexcept",
-"not",
-"not_eq",
-"nullptr",
-"operator",
-"or",
-"or_eq",
-"private",
-"protected",
-"public",
-"reflexpr",
-"register",
-"reinterpret_cast",
-"requires",
-"return",
-"short",
-"signed",
-"sizeof",
-"static",
-"static_assert",
-"static_cast",
-"struct",
-"switch",
-"synchronized",
-"template",
-"this",
-"thread_local",
-"throw",
-"true",
-"try",
-"typedef",
-"typeid",
-"typename",
-"union",
-"unsigned",
-"using",
-"virtual",
-"void",
-"volatile",
-"wchar_t",
-"while",
-"xor",
-"xor_eq",
-"include"
-]
+cpp = ["alignas","alignof","and","and_eq","asm","atomic_cancel","atomic_commit","atomic_noexcept","auto","bitand","bitor","bool","break","case","catch","char","char8_t","char16_t","char32_t","class","compl","concept","const","consteval","constexpr","const_cast","continue","co_await","co_return","co_yield","decltype","default","delete","do","double","dynamic_cast","else","enum","explicit","export","extern","false","float","for","friend","goto","if","inline","int","long","mutable","namespace","new","noexcept","not","not_eq","nullptr","operator","or","or_eq","private","protected","public","reflexpr","register","reinterpret_cast","requires","return","short","signed","sizeof","static","static_assert","static_cast","struct","switch","synchronized","template","this","thread_local","throw","true","try","typedef","typeid","typename","union","unsigned","using","virtual","void","volatile","wchar_t","while","xor","xor_eq","include"];
 
 function getArray(language) {
     if(language=="cpp"){
@@ -124,6 +26,31 @@ function highlightOnLoad(){
     }
 }
 
+function isDigitChar(ch) {
+    return ch >= '0' && ch <= '9';
+}
+
+function isAlphabet(ch) {
+    return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+}
+
+function isAlphaNumeric(ch) {
+    return isDigitChar(ch) || isAlphabet(ch);
+}
+
+/**
+ * 
+ * @param {Helper function to test if the given index has a boundary character.} inputText 
+ * @param {*} indexOfChar 
+ */
+function isThisIndexBelongsToBoundaryCharacter(inputText, indexOfChar){
+    if(indexOfChar < 0 || indexOfChar >= inputText.length){
+        return true;
+    }
+    return !isAlphaNumeric(inputText[indexOfChar])
+    
+}
+
 function colorStringByArray(input, array, color){
     var size = array.length;
     var strLength = input.length;
@@ -134,7 +61,7 @@ function colorStringByArray(input, array, color){
         for(idx=0;idx < size; idx++){
             tokenLength = array[idx].length;
             if(l>=tokenLength){
-                if(input.substr(i,tokenLength)==array[idx]){
+                if(input.substr(i,tokenLength)==array[idx] && isThisIndexBelongsToBoundaryCharacter(input,i+tokenLength) && isThisIndexBelongsToBoundaryCharacter(input, i-1)){
                     output += array[idx].fontcolor(color);
                     i += tokenLength;
                     l -= tokenLength;
@@ -162,7 +89,7 @@ function applyClassByArray(input, array, className){
         for(idx=0;idx < size; idx++){
             tokenLength = array[idx].length;
             if(l>=tokenLength){
-                if(input.substr(i,tokenLength)==array[idx]){
+                if(input.substr(i,tokenLength)==array[idx] && isThisIndexBelongsToBoundaryCharacter(input,i+tokenLength) && isThisIndexBelongsToBoundaryCharacter(input, i-1)){
                     output += "<span class=\""+className+"\">"+array[idx]+"</span>";
                     i += tokenLength;
                     l -= tokenLength;
